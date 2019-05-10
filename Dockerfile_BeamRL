@@ -1,8 +1,12 @@
 FROM triumfmlutils/baseml:v0.2
 
-RUN wget 'http://www.muonsinternal.com/muons3/G4beamlineDownload.php?download&wfedorko@triumf.ca&G4beamline-3.06-Ubuntu64.tgz' && tar -xvzf G4beamlineDownload.php\?download\&wfedorko@triumf.ca\&G4beamline-3.06-Ubuntu64.tgz
+### RUN wget 'http://www.muonsinternal.com/muons3/G4beamlineDownload.php?download&wfedorko@triumf.ca&G4beamline-3.06-Ubuntu64.tgz' && tar -xvzf G4beamlineDownload.php\?download\&wfedorko@triumf.ca\&G4beamline-3.06-Ubuntu64.tgz
 
-RUN apt-get install -y x11-apps
+RUN apt-get install -y libx11-dev libxpm-dev libxft-dev libxext-dev x11-apps 
 
-RUN source G4beamline-3.06/bin/g4bl-setup.sh
+RUN pip install --upgrade cmake
+
+RUN wget https://root.cern/download/root_v6.16.00.source.tar.gz && tar -xvzf root_v6.16.00.source.tar.gz && rm root_v6.16.00.source.tar.gz && mkdir root_build && cd root_build  
+
+### RUN source G4beamline-3.06/bin/g4bl-setup.sh
 
