@@ -1,13 +1,15 @@
 FROM triumfmlutils/baseml:v0.2
 
-### RUN wget 'http://www.muonsinternal.com/muons3/G4beamlineDownload.php?download&wfedorko@triumf.ca&G4beamline-3.06-Ubuntu64.tgz' && tar -xvzf G4beamlineDownload.php\?download\&wfedorko@triumf.ca\&G4beamline-3.06-Ubuntu64.tgz
-
 RUN apt-get install -y libx11-dev libxpm-dev libxft-dev libxext-dev x11-apps 
 
 RUN pip install --upgrade cmake
 
-RUN wget https://root.cern/download/root_v6.16.00.source.tar.gz && tar -xvzf root_v6.16.00.source.tar.gz && rm root_v6.16.00.source.tar.gz && mkdir root_build && cd root_build && export LD_LIBRARY_PATH=/opt/conda/lib:$LD_LIBRARY_PATH && cmake /workspace/root-6.16.00/ -DCMAKE_INSTALL_PREFIX=/opt/conda/ -DCMAKE_CXX_FLAGS='-I/opt/conda/include -L/opt/conda/lib' -LA && cmake --build . -- -j4
-cmake /workspace/root-6.16.00/ -DCMAKE_INSTALL_PREFIX=/opt/conda/ && cmake --build . -- -j4
+RUN wget https://root.cern/download/root_v6.16.00.source.tar.gz && tar -xvzf root_v6.16.00.source.tar.gz && rm root_v6.16.00.source.tar.gz && mkdir root_build && cd root_build && export LD_LIBRARY_PATH=/opt/conda/lib:$LD_LIBRARY_PATH && cmake /workspace/root-6.16.00/ -DCMAKE_INSTALL_PREFIX=/opt/conda/ -DCMAKE_CXX_FLAGS='-I/opt/conda/include -L/opt/conda/lib' -LA && cmake --build . -- -j4 && cmake --build . --target install && source /opt/conda/bin/thisroot.sh && cd - && rm -r root-* root_build
+
+
+
+### RUN wget 'http://www.muonsinternal.com/muons3/G4beamlineDownload.php?download&wfedorko@triumf.ca&G4beamline-3.06-Ubuntu64.tgz' && tar -xvzf G4beamlineDownload.php\?download\&wfedorko@triumf.ca\&G4beamline-3.06-Ubuntu64.tgz
+
 
 # cmake /workspace/root-6.16.00/  -DCMAKE_INSTALL_PREFIX=/opt/conda/ -DCMAKE_CXX_FLAGS='-I/opt/conda/include/ -L/opt/conda/lib/' -LA
 
