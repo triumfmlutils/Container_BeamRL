@@ -2,7 +2,10 @@ FROM triumfmlutils/baseml:v0.2
 
 RUN apt-get install -y libx11-dev libxpm-dev libxft-dev libxext-dev x11-apps 
 
-RUN apt-get install -y libqt5core5a libqt5dbus5 libqt5gui5 qtbase5-dbg qtbase5-dev qtbase5-dev-tools qtbase5-dev-tools-dbg qt3d5-dev qt3d5-dev
+RUN apt-get install -y libqt5core5a libqt5opengl5 libqt5opengl5-dev libqt5qml5 libqt5dbus5 libqt5gui5 qtbase5-dbg qtbase5-dev qtbase5-dev-tools qtbase5-dev-tools-dbg qt3d5-dev qt3d5-dev libglu1-mesa-dev libgl1-mesa-dev freeglut3-dev mesa-common-dev mercurial
+
+RUN apt-get install -y libboost-all-dev doxygen
+
 RUN pip install --upgrade cmake
 
 RUN wget http://mirrors.kernel.org/gnu/gsl/gsl-2.5.tar.gz && tar -xvzf gsl-2.5.tar.gz && cd gsl-2.5 && ./configure CPPFLAGS='-I/opt/conda/include -fPIC' LDFLAGS='-L/opt/conda/lib' --prefix=/opt/conda/ && make -j4 && make check && make install && cd - && rm -r gsl*
@@ -12,8 +15,12 @@ RUN  wget http://www.fftw.org/fftw-3.3.8.tar.gz && tar -xvzf fftw-3.3.8.tar.gz &
 
 RUN wget https://root.cern/download/root_v6.16.00.source.tar.gz && tar -xvzf root_v6.16.00.source.tar.gz && rm root_v6.16.00.source.tar.gz && mkdir root_build && cd root_build && export LD_LIBRARY_PATH=/opt/conda/lib:$LD_LIBRARY_PATH && cmake /workspace/root-6.16.00/ -DCMAKE_INSTALL_PREFIX=/opt/conda/ -DCMAKE_CXX_FLAGS='-I/opt/conda/include -L/opt/conda/lib' -LA && cmake --build . -- -j4 && cmake --build . --target install && source /opt/conda/bin/thisroot.sh && cd - && rm -r root-* root_build
 
+RUN  wget http://apache.mirror.iweb.ca//xerces/c/3/sources/xerces-c-3.2.2.tar.gz && tar -xvzf xerces-c-3.2.2.tar.gz  && mkdir xerces-c-3.2.2-build && cd xerces-c-3.2.2-build && cmake /workspace/xerces-c-3.2.2/ -DCMAKE_INSTALL_PREFIX=/opt/conda/ -DCMAKE_CXX_FLAGS='-I/opt/conda/include -L/opt/conda/lib' -LA && cmake --build . -- -j4 &&  cmake --build . --target install && cd - && rm -r xerces*
+
+#RUN hg clone https://bitbucket.org/Coin3D/coin coin && mkdir coin-build && cd coin-build && cmake /workspace/coin/ -DCMAKE_INSTALL_PREFIX=/opt/conda/ -DCMAKE_CXX_FLAGS='-I/opt/conda/include -L/opt/conda/lib' -LA
 
 
+RUN wget http://geant4-data.web.cern.ch/geant4-data/releases/geant4.10.05.p01.tar.gz && tar -xvzf geant4.10.05.p01.tar.gz && mkdir geant4.10.05.p01-build && cd geant4.10.05.p01-build/ && cmake /workspace/geant4.10.05.p01 -DCMAKE_INSTALL_PREFIX=/opt/conda/ -DCMAKE_CXX_FLAGS='-I/opt/conda/include -L/opt/conda/lib' -DGEANT4_INSTALL_DATA=ON -LA &&  cmake --build . -- -j4  &&  cmake --build . --target install && cd - && rm -r geant4*
 
 ### RUN wget 'http://www.muonsinternal.com/muons3/G4beamlineDownload.php?download&wfedorko@triumf.ca&G4beamline-3.06-Ubuntu64.tgz' && tar -xvzf G4beamlineDownload.php\?download\&wfedorko@triumf.ca\&G4beamline-3.06-Ubuntu64.tgz
 
