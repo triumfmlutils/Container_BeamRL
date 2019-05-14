@@ -2,9 +2,16 @@ FROM triumfmlutils/baseml:v0.2
 
 RUN apt-get install -y libx11-dev libxpm-dev libxft-dev libxext-dev x11-apps 
 
+RUN apt-get install -y libqt5core5a libqt5dbus5 libqt5gui5 qtbase5-dbg qtbase5-dev qtbase5-dev-tools qtbase5-dev-tools-dbg qt3d5-dev qt3d5-dev
 RUN pip install --upgrade cmake
 
+RUN wget http://mirrors.kernel.org/gnu/gsl/gsl-2.5.tar.gz && tar -xvzf gsl-2.5.tar.gz && cd gsl-2.5 && ./configure CPPFLAGS='-I/opt/conda/include -fPIC' LDFLAGS='-L/opt/conda/lib' --prefix=/opt/conda/ && make -j4 && make check && make install && cd - && rm -r gsl*
+
+
+RUN  wget http://www.fftw.org/fftw-3.3.8.tar.gz && tar -xvzf fftw-3.3.8.tar.gz && cd fftw-3.3.8/ && ./configure CPPFLAGS='-I/opt/conda/include -fPIC' LDFLAGS='-L/opt/conda/lib' --prefix=/opt/conda/ && make -j4 && make check && make install && cd - && rm -r fftw*
+
 RUN wget https://root.cern/download/root_v6.16.00.source.tar.gz && tar -xvzf root_v6.16.00.source.tar.gz && rm root_v6.16.00.source.tar.gz && mkdir root_build && cd root_build && export LD_LIBRARY_PATH=/opt/conda/lib:$LD_LIBRARY_PATH && cmake /workspace/root-6.16.00/ -DCMAKE_INSTALL_PREFIX=/opt/conda/ -DCMAKE_CXX_FLAGS='-I/opt/conda/include -L/opt/conda/lib' -LA && cmake --build . -- -j4 && cmake --build . --target install && source /opt/conda/bin/thisroot.sh && cd - && rm -r root-* root_build
+
 
 
 
