@@ -8,13 +8,16 @@ RUN apt-get install -y libglu1-mesa-dev libgl1-mesa-dev freeglut3-dev mesa-commo
 
 RUN apt-get install -y libgstreamer1.0-0 gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav libgstreamer-plugins-base1.0-dev libgstreamer-plugins-good1.0-dev libgstreamer-plugins-bad1.0-dev gstreamer1.0-doc gstreamer1.0-tools gstreamer1.0-x gperf bison flex
 
-RUN wget http://download.qt.io/official_releases/qt/5.12/5.12.3/single/qt-everywhere-src-5.12.3.tar.xz && tar -Jxvf qt-everywhere-src-5.12.3.tar.xz && cd qt-everywhere-src-5.12.3 && echo o | ./configure -qt-xcb -gstreamer --prefix=/opt/conda && make -j4 && make install && cd - && rm -r qt-everywhere-src-5.12.3*
+RUN apt-get install -y libxerces-c3.1 libxerces-c-dev
 
 #RUN apt-get install -y libboost-all-dev mercurial doxygen
 
-RUN apt-get install -y libxerces-c3.1 libxerces-c-dev
 
 RUN pip install --upgrade cmake
+
+RUN wget http://download.qt.io/official_releases/qt/5.12/5.12.3/single/qt-everywhere-src-5.12.3.tar.xz && tar -Jxvf qt-everywhere-src-5.12.3.tar.xz && cd qt-everywhere-src-5.12.3 && echo o | ./configure -qt-xcb -gstreamer --prefix=/opt/conda && make -j4 && make install && cd - && rm -r qt-everywhere-src-5.12.3*
+
+
 
 RUN wget http://mirrors.kernel.org/gnu/gsl/gsl-2.5.tar.gz && tar -xvzf gsl-2.5.tar.gz && cd gsl-2.5 && ./configure CPPFLAGS='-I/opt/conda/include -fPIC' LDFLAGS='-L/opt/conda/lib' --prefix=/opt/conda/ && make -j4 && make check && make install && cd - && rm -r gsl*
 
@@ -32,7 +35,8 @@ RUN wget http://geant4-data.web.cern.ch/geant4-data/releases/geant4.10.05.p01.ta
 
 ### RUN wget 'http://www.muonsinternal.com/muons3/G4beamlineDownload.php?download&wfedorko@triumf.ca&G4beamline-3.06-Ubuntu64.tgz' && tar -xvzf G4beamlineDownload.php\?download\&wfedorko@triumf.ca\&G4beamline-3.06-Ubuntu64.tgz
 
-RUN wget 'http://www.muonsinternal.com/muons3/G4beamlineDownload.php?download&wfedorko@triumf.ca&G4beamline-3.06-source.tgz' && tar -xvzf G4beamlineDownload.php\?download\&wfedorko\@triumf.ca\&G4beamline-3.06-source.tgz && mkdir G4beamline-3.06-source-build && cd G4beamline-3.06-source-build && . /opt/conda/bin/thisroot.sh && export LD_LIBRARY_PATH=/opt/conda/lib:$LD_LIBRARY_PATH && cmake /workspace/G4beamline-3.06-source/ -DCMAKE_INSTALL_PREFIX=/opt/conda/ -DCMAKE_CXX_FLAGS='-I/opt/conda/include -L/opt/conda/lib' -LA 
+RUN wget 'http://www.muonsinternal.com/muons3/G4beamlineDownload.php?download&wfedorko@triumf.ca&G4beamline-3.06-source.tgz' && tar -xvzf G4beamlineDownload.php\?download\&wfedorko\@triumf.ca\&G4beamline-3.06-source.tgz
+#&& mkdir G4beamline-3.06-source-build && cd G4beamline-3.06-source-build && . /opt/conda/bin/thisroot.sh && export LD_LIBRARY_PATH=/opt/conda/lib:$LD_LIBRARY_PATH && cmake /workspace/G4beamline-3.06-source/ -DCMAKE_INSTALL_PREFIX=/opt/conda/ -DCMAKE_CXX_FLAGS='-I/opt/conda/include -L/opt/conda/lib' -LA 
 
 # cmake /workspace/root-6.16.00/  -DCMAKE_INSTALL_PREFIX=/opt/conda/ -DCMAKE_CXX_FLAGS='-I/opt/conda/include/ -L/opt/conda/lib/' -LA
 
