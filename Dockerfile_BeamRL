@@ -1,6 +1,6 @@
 FROM triumfmlutils/baseml:v0.2
 
-RUN apt-get install -y libx11-dev libxpm-dev libxft-dev libxext-dev x11-apps libxkbcommon-dev libxkbcommon-x11-0 libxkbcommon-x11-dev libxkbcommon0 libxmu-dev
+RUN apt-get update && apt-get install -y libx11-dev libxpm-dev libxft-dev libxext-dev x11-apps libxkbcommon-dev libxkbcommon-x11-0 libxkbcommon-x11-dev libxkbcommon0 libxmu-dev
 
 #RUN apt-get install -y libqt5core5a libqt5opengl5 libqt5opengl5-dev libqt5qml5 libqt5dbus5 libqt5gui5 qtbase5-dbg qtbase5-dev qtbase5-dev-tools qtbase5-dev-tools-dbg qt3d5-dev qtcreator libglu1-mesa-dev libgl1-mesa-dev freeglut3-dev mesa-common-dev  libassimp-dev libfontconfig1 libdbus-1-3
 
