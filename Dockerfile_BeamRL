@@ -1,4 +1,4 @@
-FROM triumfmlutils/baseml:v0.2
+FROM triumfmlutils/baseml:v2.0.0
 
 RUN apt-get update && apt-get install -y libx11-dev libxpm-dev libxft-dev libxext-dev x11-apps libxkbcommon-dev libxkbcommon-x11-0 libxkbcommon-x11-dev libxkbcommon0 libxmu-dev
 
