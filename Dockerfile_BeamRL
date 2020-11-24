@@ -1,4 +1,4 @@
-FROM triumfmlutils/rl_gym:v2.0.0
+FROM triumfmlutils/rl_gym:v2.0.1
 
 RUN apt-get update
 
@@ -42,7 +42,6 @@ RUN wget http://geant4-data.web.cern.ch/geant4-data/releases/geant4.10.05.p01.ta
 
 # install G4beamline
 RUN wget 'http://www.muonsinternal.com/muons3/G4beamlineDownload.php?download&wfedorko@triumf.ca&G4beamline-3.06-source.tgz' && tar -xvzf G4beamlineDownload.php\?download\&wfedorko\@triumf.ca\&G4beamline-3.06-source.tgz && rm 'G4beamlineDownload.php?download&wfedorko@triumf.ca&G4beamline-3.06-source.tgz' && cd G4beamline-3.06-source && for f in g4bl g4bldata g4blgui g4blmpi g4bltest; do mv ${f}/CMakelists.txt $f/CMakeLists.txt -v; done && cd - && mkdir G4beamline-3.06-source-build && cd G4beamline-3.06-source-build && . /opt/conda/bin/thisroot.sh &&  cmake /workspace/G4beamline-3.06-source/ -DCMAKE_INSTALL_PREFIX=/opt/conda/ -DCMAKE_CXX_FLAGS='-I/opt/conda/include -L/opt/conda/lib' -DGSL_DIR=/opt/conda -DFFTW_DIR=/opt/conda -LA &&  cmake --build . -- -j24 && make install && rm -r root lib G4beamline-3.06-Ubuntu64.tgz ../G4beamline-3.06-source &&  cd - && wget 'http://www.muonsinternal.com/muons3/G4beamlineDownload.php?download&wfedorko@triumf.ca&Geant4Data-3.06.tgz' && tar -xzf 'G4beamlineDownload.php?download&wfedorko@triumf.ca&Geant4Data-3.06.tgz' && rm 'G4beamlineDownload.php?download&wfedorko@triumf.ca&Geant4Data-3.06.tgz' && echo '/workspace/Geant4Data/' >> G4beamline-3.06-source-build/.data
-RUN . /opt/conda/bin/thisroot.sh
 
 ##################
 #install TRANSOPTR
