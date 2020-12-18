@@ -1,4 +1,4 @@
-FROM triumfmlutils/rl_gym:v2.0.1
+FROM triumfmlutils/rl_gym:v2.0.2
 
 RUN apt-get update
 
